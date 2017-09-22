@@ -1,2 +1,2 @@
 # LitUp
-'LitUp' is a project which is using Tango technology, the main idea of the app is to help blind people orientate inside the buildings.
+'Lit up is the application for people with difficulty to wake up in the morning. we force you to wake up in the mornings.'
