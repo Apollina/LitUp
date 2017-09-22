@@ -5,14 +5,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.apollinariia.litup.MainActivity">
-     
-        <TimePicker
-            android:id="@+id/timePicker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-     
-        
+
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
 
     <ToggleButton
         android:id="@+id/toggleButton"
@@ -22,7 +20,7 @@
         android:layout_margin="20dp"
         android:checked="false"
         android:onClick="OnToggleClicked"
-        android:textOff="Turn on"
-        android:textOn="Turn off" />
+        android:textOff="@string/on"
+        android:textOn="@string/off" />
      
-    </LinearLayout>
+</LinearLayout>

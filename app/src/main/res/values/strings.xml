@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">LitUp</string>
+    <string name="on">Turn On</string>
+    <string name="off">Turn Off</string>
 </resources>
