@@ -36,7 +36,6 @@ public class AlarmList extends Fragment implements View.OnClickListener {
     private Drawable deactivated;
     private int position;
     private CustomCursorAdapter adapter;
-    private RecyclerView recyclerView;
     private AnimatedVectorDrawable checkedToUnchecked;
     private AnimatedVectorDrawable uncheckedToChecked;
 
@@ -67,7 +66,7 @@ public class AlarmList extends Fragment implements View.OnClickListener {
             return;
         }
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.list);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -81,9 +80,9 @@ public class AlarmList extends Fragment implements View.OnClickListener {
 
             @Override
             public void onClick(View view) {
-                //StartTimePickerFragment fragment = new StartTimePickerFragment();
-                //fragment.setAlarmFragment(AlarmFragment.this);
-                //fragment.show(getFragmentManager(), "timePicker");
+                TimePicker fragment = new TimePicker();
+                //fragment.setAlarmFragment(fragment.this);
+                fragment.show(getFragmentManager(), "timePicker");
             }
         });
 
@@ -114,10 +113,11 @@ public class AlarmList extends Fragment implements View.OnClickListener {
     }
 
     private void showFab() {
-        /*if (fab == null) {
+if (fab == null) {
             return;
         }
-*/
+
+
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) fab.getLayoutParams();
         layoutParams.rightMargin += (int) (fab.getWidth() * 1.7);
         layoutParams.bottomMargin += (int) (fab.getHeight() * 0.25);

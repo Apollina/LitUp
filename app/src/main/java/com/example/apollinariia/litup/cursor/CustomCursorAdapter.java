@@ -17,9 +17,7 @@ import com.example.apollinariia.litup.data.ItemViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Apollinariia on 9/27/2017.
- */
+
 
 public class CustomCursorAdapter extends RecyclerView.Adapter<ItemViewHolder> {
 

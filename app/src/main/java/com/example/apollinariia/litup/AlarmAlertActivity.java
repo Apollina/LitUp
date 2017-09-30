@@ -18,9 +18,8 @@ import android.view.WindowManager;
 
 import com.example.apollinariia.litup.data.AlarmDbHelper;
 
-/**
- * Created by Apollinariia and Hovakh on 9/27/2017.
- */
+
+
 
 public class AlarmAlertActivity extends Activity {
 
