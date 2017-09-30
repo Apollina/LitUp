@@ -12,12 +12,12 @@ import com.example.apollinariia.litup.data.AlarmContract.*;
 
 
 public class FakeAlarms {
-    public static void insertPresidentData (SQLiteDatabase db) {
+    public static void insertAlarmData (SQLiteDatabase db) {
         if (db == null) {
             return;
         }
         //create a list of fake guests
-        List<ContentValues> list = new ArrayList<ContentValues>();
+        List<ContentValues> list = new ArrayList<>();
 
         ContentValues cv = new ContentValues();
         cv.put(AlarmEntry.ALARM_ACTIVE, "true");
