@@ -114,10 +114,10 @@ public class AlarmList extends Fragment implements View.OnClickListener {
     }
 
     private void showFab() {
-        if (fab == null) {
+        /*if (fab == null) {
             return;
         }
-
+*/
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) fab.getLayoutParams();
         layoutParams.rightMargin += (int) (fab.getWidth() * 1.7);
         layoutParams.bottomMargin += (int) (fab.getHeight() * 0.25);

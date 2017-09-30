@@ -35,6 +35,10 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         // null == No title
-        return null;
+        if (position == 0) {
+            return "Alarms";
+        } else  {
+            return "settings";
+        }
     }
 }
