@@ -8,9 +8,7 @@ import android.widget.TextView;
 import com.example.apollinariia.litup.Alarm;
 import com.example.apollinariia.litup.R;
 
-/**
- * Created by Apollinariia on 9/27/2017.
- */
+
 
 public class ItemViewHolder extends RecyclerView.ViewHolder {
 

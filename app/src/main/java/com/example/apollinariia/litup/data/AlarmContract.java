@@ -26,9 +26,7 @@ import com.example.apollinariia.litup.services.AlarmReciever.*;
 import com.example.apollinariia.litup.services.BootReciever;
 
 
-/**
- * Created by Apollinariia on 9/27/2017.
- */
+
 
 public class AlarmContract {
 

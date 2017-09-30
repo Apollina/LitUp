@@ -9,9 +9,7 @@ import java.util.List;
 
 import com.example.apollinariia.litup.data.AlarmContract.*;
 
-/**
- * Created by Apollinariia on 9/27/2017.
- */
+
 
 public class FakeAlarms {
     public static void insertPresidentData (SQLiteDatabase db) {

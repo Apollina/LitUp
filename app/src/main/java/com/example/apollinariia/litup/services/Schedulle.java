@@ -10,9 +10,7 @@ import android.support.v4.app.NotificationCompat;
 import com.example.apollinariia.litup.MainActivity;
 import com.example.apollinariia.litup.R;
 
-/**
- * Created by Apollinariia on 9/27/2017.
- */
+
 
 public class Schedulle extends IntentService
 

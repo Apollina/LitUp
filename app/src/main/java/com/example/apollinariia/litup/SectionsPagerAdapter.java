@@ -4,9 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-/**
- * Created by Apollinariia on 9/27/2017.
- */
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
@@ -35,6 +32,10 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         // null == No title
-        return null;
+        if (position == 0) {
+            return "Alarms";
+        } else  {
+            return "settings";
+        }
     }
 }

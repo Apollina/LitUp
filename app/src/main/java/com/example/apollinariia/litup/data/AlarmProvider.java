@@ -16,9 +16,6 @@ import static android.provider.ContactsContract.AUTHORITY;
 import static com.example.apollinariia.litup.data.AlarmContract.AlarmEntry.TABLE_NAME;
 import static com.example.apollinariia.litup.data.AlarmContract.PATH_ALARMS;
 
-/**
- * Created by Apollinariia on 9/27/2017.
- */
 
 public class AlarmProvider extends ContentProvider {
 

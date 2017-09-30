@@ -20,9 +20,7 @@ import org.joda.time.Duration;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-/**
- * Created by Apollinariia on 9/27/2017.
- */
+
 
 public class Alarm implements Parcelable {
 

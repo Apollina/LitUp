@@ -7,6 +7,7 @@ import android.os.Parcelable;
  * Created by Apollinariia on 9/27/2017.
  */
 
+
 public class Parcelables {
     public static byte[] toByteArray(Parcelable parcelable) {
     Parcel parcel = Parcel.obtain();
