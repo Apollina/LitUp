@@ -21,7 +21,6 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 
-
 public class Alarm implements Parcelable {
 
     public static final String TAG = "Alarm";
@@ -55,7 +54,7 @@ public class Alarm implements Parcelable {
         this.context = context;
         active = true;
 
-        Intent myIntent = new Intent(context, AlarmReciever.AlarmReceiver.class);
+        Intent myIntent = new Intent(context, AlarmReciever.class);
 
         final Bundle bundle = new Bundle();
         bundle.putByteArray(Alarm.TAG, Parcelables.toByteArray(this));
@@ -82,7 +81,7 @@ public class Alarm implements Parcelable {
     public void cancelAlarm(Context context) {
         active = true;
 
-        Intent myIntent = new Intent(context, AlarmReciever.AlarmReceiver.class);
+        Intent myIntent = new Intent(context, AlarmReciever.class);
 
         final Bundle bundle = new Bundle();
         bundle.putByteArray(Alarm.TAG, Parcelables.toByteArray(this));

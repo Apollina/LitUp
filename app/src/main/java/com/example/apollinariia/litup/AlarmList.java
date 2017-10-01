@@ -20,11 +20,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.example.apollinariia.litup.Alarm;
 import com.example.apollinariia.litup.R;
 import com.example.apollinariia.litup.cursor.CustomCursorAdapter;
 import com.example.apollinariia.litup.data.AlarmDbHelper;
+import com.example.apollinariia.litup.utility.MyItemTouchHelper;
 
 import java.util.List;
 
@@ -32,15 +34,9 @@ import java.util.List;
 public class AlarmList extends Fragment implements View.OnClickListener {
 
     private TabLayout tabLayout;
-    private AnimatedVectorDrawable animation;
-    private Drawable activated;
-    private Drawable deactivated;
     private int position;
     private CustomCursorAdapter adapter;
-    private AnimatedVectorDrawable checkedToUnchecked;
-    private AnimatedVectorDrawable uncheckedToChecked;
 
-    private Animation showFab;
     private FloatingActionButton fab;
 
     @Override
@@ -72,7 +68,7 @@ public class AlarmList extends Fragment implements View.OnClickListener {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        //new ItemTouchHelper(new MyItemTouchHelper(0, ItemTouchHelper.RIGHT, this)).attachToRecyclerView(recyclerView);
+        new ItemTouchHelper(new MyItemTouchHelper(0, ItemTouchHelper.RIGHT, this)).attachToRecyclerView(recyclerView);
 
         updateAlarmList();
 
@@ -82,7 +78,7 @@ public class AlarmList extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(View view) {
                 TimePicker fragment = new TimePicker();
-                //fragment.setAlarmFragment(fragment.this);
+                fragment.setAlarmFragment(AlarmList.this);
                 fragment.show(getFragmentManager(), "timePicker");
             }
         });
@@ -94,7 +90,7 @@ public class AlarmList extends Fragment implements View.OnClickListener {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-        if (tabLayout == null || animation == null) {
+        if (tabLayout == null) {
             return;
         }
 
@@ -103,18 +99,13 @@ public class AlarmList extends Fragment implements View.OnClickListener {
         }
 
         if (isVisibleToUser) {
-            // start animation
             updateAlarmList();
-            activateIcon();
             showFab();
-        } else {
-            // deactivated icon
-            deactivateIcon();
         }
     }
 
     private void showFab() {
-if (fab == null) {
+        if (fab == null) {
             return;
         }
 
@@ -123,20 +114,9 @@ if (fab == null) {
         layoutParams.rightMargin += (int) (fab.getWidth() * 1.7);
         layoutParams.bottomMargin += (int) (fab.getHeight() * 0.25);
         fab.setLayoutParams(layoutParams);
-        //fab.startAnimation(showFab);
         fab.setClickable(true);
     }
 
-    private void activateIcon() {
-        tabLayout.getTabAt(position).setIcon(animation);
-        animation.start();
-    }
-
-
-    private void deactivateIcon() {
-        animation.stop();
-        tabLayout.getTabAt(position).setIcon(deactivated);
-    }
 
     public void setPosition(int position) {
         this.position = position;
@@ -177,18 +157,12 @@ if (fab == null) {
                 AlarmDbHelper.update(alarm);
                 //callMathAlarmScheduleService();
                 if (switchBtn.isChecked()) {
-                    checkedToUnchecked.stop();
-                    switchBtn.setButtonDrawable(uncheckedToChecked);
-                    uncheckedToChecked.start();
                     alarm.reset();
                     alarm.schedule(getContext());
-//                    Toast.makeText(getActivity(), alarm.getTimeUntilNextAlarmMessage(), Toast.LENGTH_LONG).show();
-                } else {
-                    uncheckedToChecked.stop();
-                    switchBtn.setButtonDrawable(checkedToUnchecked);
-                    checkedToUnchecked.start();
+                    Toast.makeText(getActivity(), alarm.getTimeUntilNextAlarmMessage(), Toast.LENGTH_LONG).show();
                 }
                 break;
+
             case R.id.textView_alarm_time:
             case R.id.textView_alarm_days:
                 final Bundle bundle = new Bundle();

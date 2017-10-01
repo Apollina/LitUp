@@ -16,13 +16,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".services.Schedulle"/>
+
+        <receiver android:name=".services.AlarmReciever$AlarmReceiver"/>
         <receiver android:name=".services.BootReciever"
             android:enabled="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
+        <service android:name=".services.Schedulle"
+            android:process="com.example.apollinariia.litup.alarm.serviceProcess"/>
     </application>
+
 
 </manifest>

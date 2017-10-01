@@ -7,10 +7,13 @@ android:layout_height="68dp" >
     android:id="@+id/card_view"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_margin="10dp"
     android:layout_height="62dp"
     card_view:cardCornerRadius="4dp"
-    card_view:elevation="14dp">
+    card_view:elevation="14dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_centerVertical="true"
+    android:layout_centerHorizontal="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,14 +24,21 @@ android:layout_height="68dp" >
             android:id="@+id/textView_alarm_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center" >
+            android:textAlignment="center"
+            android:gravity="center"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/view1"
+            android:layout_alignParentBottom="true">
         </TextView>
 
         <TextView
             android:id="@+id/textView_alarm_days"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView_alarm_time">
+            android:text="Another Recyclerview Fragment"
+            android:layout_alignBaseline="@+id/switch_btn"
+            android:layout_alignBottom="@+id/switch_btn"
+            android:layout_toStartOf="@+id/switch_btn">
         </TextView>
 
         <Switch
