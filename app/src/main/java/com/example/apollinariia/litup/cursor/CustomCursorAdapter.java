@@ -58,6 +58,11 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<ItemViewHolder> {
         alarmTimeView.setText(alarm.getAlarmTimeString());
         alarmTimeView.setOnClickListener(alarmFragment);
         alarmTimeView.setTag(position);
+
+        //final TextView alarmDayView = holder.getAlarmTimeView();
+        //alarmTimeView.setText(alarm.getAlarmDayString());
+        //alarmTimeView.setOnClickListener(alarmFragment);
+        //alarmTimeView.setTag(position);
     }
 
     @Override

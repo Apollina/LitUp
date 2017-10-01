@@ -1,6 +1,7 @@
 package com.example.apollinariia.litup;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -15,15 +16,12 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import com.example.apollinariia.litup.Alarm;
-import com.example.apollinariia.litup.R;
+
 import com.example.apollinariia.litup.cursor.CustomCursorAdapter;
 import com.example.apollinariia.litup.data.AlarmDbHelper;
 import com.example.apollinariia.litup.utility.MyItemTouchHelper;
@@ -83,7 +81,6 @@ public class AlarmList extends Fragment implements View.OnClickListener {
             }
         });
 
-        showFab();
     }
 
     @Override
@@ -100,22 +97,10 @@ public class AlarmList extends Fragment implements View.OnClickListener {
 
         if (isVisibleToUser) {
             updateAlarmList();
-            showFab();
+
         }
     }
 
-    private void showFab() {
-        if (fab == null) {
-            return;
-        }
-
-
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) fab.getLayoutParams();
-        layoutParams.rightMargin += (int) (fab.getWidth() * 1.7);
-        layoutParams.bottomMargin += (int) (fab.getHeight() * 0.25);
-        fab.setLayoutParams(layoutParams);
-        fab.setClickable(true);
-    }
 
 
     public void setPosition(int position) {
@@ -151,7 +136,6 @@ public class AlarmList extends Fragment implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.switch_btn:
                 Switch switchBtn = (Switch) view;
-
                 Alarm alarm = (Alarm) adapter.getItem((Integer) switchBtn.getTag());
                 alarm.setActive(switchBtn.isChecked());
                 AlarmDbHelper.update(alarm);
@@ -165,12 +149,12 @@ public class AlarmList extends Fragment implements View.OnClickListener {
             case R.id.textView_alarm_time:
                 final Bundle bundle = new Bundle();
                 bundle.putParcelable(Alarm.TAG, (Alarm) adapter.getItem((Integer) view.getTag()));
-
                 final TimePicker fragment = new TimePicker();
                 fragment.setAlarmFragment(AlarmList.this);
                 fragment.setArguments(bundle);
                 fragment.show(getFragmentManager(), "timePicker");
                 break;
+
         }
     }
 }
