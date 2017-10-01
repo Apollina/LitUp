@@ -19,6 +19,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 
 import com.example.apollinariia.litup.Alarm;
 import com.example.apollinariia.litup.R;
@@ -168,23 +169,23 @@ if (fab == null) {
     public void onClick(View view) {
 
         switch (view.getId()) {
-            case R.id.checkBox_alarm_active:
-                CheckBox checkBox = (CheckBox) view;
+            case R.id.switch_btn:
+                Switch switchBtn = (Switch) view;
 
-                Alarm alarm = (Alarm) adapter.getItem((Integer) checkBox.getTag());
-                alarm.setActive(checkBox.isChecked());
+                Alarm alarm = (Alarm) adapter.getItem((Integer) switchBtn.getTag());
+                alarm.setActive(switchBtn.isChecked());
                 AlarmDbHelper.update(alarm);
                 //callMathAlarmScheduleService();
-                if (checkBox.isChecked()) {
+                if (switchBtn.isChecked()) {
                     checkedToUnchecked.stop();
-                    checkBox.setButtonDrawable(uncheckedToChecked);
+                    switchBtn.setButtonDrawable(uncheckedToChecked);
                     uncheckedToChecked.start();
                     alarm.reset();
                     alarm.schedule(getContext());
 //                    Toast.makeText(getActivity(), alarm.getTimeUntilNextAlarmMessage(), Toast.LENGTH_LONG).show();
                 } else {
                     uncheckedToChecked.stop();
-                    checkBox.setButtonDrawable(checkedToUnchecked);
+                    switchBtn.setButtonDrawable(checkedToUnchecked);
                     checkedToUnchecked.start();
                 }
                 break;

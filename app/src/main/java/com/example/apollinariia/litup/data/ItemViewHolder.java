@@ -3,6 +3,7 @@ package com.example.apollinariia.litup.data;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.apollinariia.litup.Alarm;
@@ -12,19 +13,19 @@ import com.example.apollinariia.litup.R;
 
 public class ItemViewHolder extends RecyclerView.ViewHolder {
 
-    private final CheckBox checkBox;
+    private final Switch switchBtn;
     private final TextView alarmTimeView;
     private Alarm alarm;
 
     public ItemViewHolder(View itemView) {
         super(itemView);
 
-        checkBox = (CheckBox) itemView.findViewById(R.id.checkBox_alarm_active);
+        switchBtn = (Switch) itemView.findViewById(R.id.switch_btn);
         alarmTimeView = (TextView) itemView.findViewById(R.id.textView_alarm_time);
     }
 
-    public CheckBox getCheckBox() {
-        return checkBox;
+    public Switch getSwitch() {
+        return switchBtn;
     }
 
     public TextView getAlarmTimeView() {

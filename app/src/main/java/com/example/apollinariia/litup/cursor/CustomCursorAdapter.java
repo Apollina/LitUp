@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.apollinariia.litup.Alarm;
@@ -23,8 +24,6 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<ItemViewHolder> {
 
     private AlarmList alarmFragment;
     private List<Alarm> alarmList = new ArrayList<>();
-    private AnimatedVectorDrawable checkedToUnchecked;
-    private AnimatedVectorDrawable uncheckedToChecked;
 
     public CustomCursorAdapter(AlarmList alarmFragment) {
         this.alarmFragment = alarmFragment;
@@ -48,10 +47,10 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<ItemViewHolder> {
     public void onBindViewHolder(ItemViewHolder holder, int position) {
         final Alarm alarm = (Alarm) getItem(position);
 
-        final CheckBox checkBox = holder.getCheckBox();
-        checkBox.setChecked(alarm.isActive());
-        checkBox.setTag(position);
-        checkBox.setOnClickListener(alarmFragment);
+        final Switch switchBtn = holder.getSwitch();
+        switchBtn.setChecked(alarm.isActive());
+        switchBtn.setTag(position);
+        switchBtn.setOnClickListener(alarmFragment);
 
         Log.d("adapter", "alarm is " + alarm.isActive() + ", " + alarm.getAlarmTimeStringParcelable());
 
