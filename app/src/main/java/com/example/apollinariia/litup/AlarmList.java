@@ -155,7 +155,6 @@ public class AlarmList extends Fragment implements View.OnClickListener {
                 Alarm alarm = (Alarm) adapter.getItem((Integer) switchBtn.getTag());
                 alarm.setActive(switchBtn.isChecked());
                 AlarmDbHelper.update(alarm);
-                //callMathAlarmScheduleService();
                 if (switchBtn.isChecked()) {
                     alarm.reset();
                     alarm.schedule(getContext());
@@ -164,14 +163,13 @@ public class AlarmList extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.textView_alarm_time:
-            case R.id.textView_alarm_days:
                 final Bundle bundle = new Bundle();
-                //  bundle.putParcelable(Alarm.TAG, (Alarm) adapter.getItem((Integer) view.getTag()));
+                bundle.putParcelable(Alarm.TAG, (Alarm) adapter.getItem((Integer) view.getTag()));
 
-                // final StartTimePickerFragment fragment = new StartTimePickerFragment();
-                //  fragment.setAlarmFragment(AlarmFragment.this);
-                //  fragment.setArguments(bundle);
-                //   fragment.show(getFragmentManager(), "timePicker");
+                final TimePicker fragment = new TimePicker();
+                fragment.setAlarmFragment(AlarmList.this);
+                fragment.setArguments(bundle);
+                fragment.show(getFragmentManager(), "timePicker");
                 break;
         }
     }
