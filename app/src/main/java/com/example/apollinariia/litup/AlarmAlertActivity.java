@@ -19,8 +19,6 @@ import android.view.WindowManager;
 import com.example.apollinariia.litup.data.AlarmDbHelper;
 
 
-
-
 public class AlarmAlertActivity extends Activity {
 
     private static final String TAG = "AlarmAlertActivity";
@@ -125,7 +123,7 @@ public class AlarmAlertActivity extends Activity {
         processIntent(intent);
     }
 
-    private void processIntent(Intent intent){
+    private void processIntent(Intent intent) {
         Log.d(TAG, intent.toString());
     }
 

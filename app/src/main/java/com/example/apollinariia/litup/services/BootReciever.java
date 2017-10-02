@@ -8,11 +8,13 @@ import com.example.apollinariia.litup.services.AlarmReciever;
 
 
 public class BootReciever extends BroadcastReceiver {
-    AlarmReciever.AlarmReceiver alarm = new AlarmReciever.AlarmReceiver();
 
+    AlarmReciever alarm = new AlarmReciever();
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
+        if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED"))
+        {
+            // TODO
         }
     }
 }

@@ -16,6 +16,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
@@ -102,7 +103,6 @@ public class AlarmList extends Fragment implements View.OnClickListener {
     }
 
 
-
     public void setPosition(int position) {
         this.position = position;
     }
@@ -145,6 +145,7 @@ public class AlarmList extends Fragment implements View.OnClickListener {
                     Toast.makeText(getActivity(), alarm.getTimeUntilNextAlarmMessage(), Toast.LENGTH_LONG).show();
                 }
                 break;
+
 
             case R.id.textView_alarm_time:
                 final Bundle bundle = new Bundle();
