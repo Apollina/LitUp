@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -23,10 +25,11 @@ public class AlarmAlertActivity extends Activity {
 
     private static final String TAG = "AlarmAlertActivity";
     private Alarm alarm;
-    private MediaPlayer mediaPlayer;
+    private MediaPlayer mediaPlayer=null;
     private Vibrator vibrator;
     private boolean alarmActive;
     private ClickListener clickListener;
+    Ringtone ringtone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +55,7 @@ public class AlarmAlertActivity extends Activity {
         }
 
         if (alarm == null) {
-            Log.d(TAG, "Alarm is null!");
+            Log.d(TAG, "Alarm is null");
             return;
         }
 
@@ -65,12 +68,20 @@ public class AlarmAlertActivity extends Activity {
 
         telephonyManager.listen(callStateListener, CallStateListener.LISTEN_CALL_STATE);
 
+
+        Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        if (alarmUri == null) {
+            alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+        }
+        ringtone = RingtoneManager.getRingtone(getApplicationContext(), alarmUri);
+
         startAlarm();
     }
 
     private void startAlarm() {
         if (alarm != null && !alarm.getTonePath().isEmpty()) {
             Log.d(TAG, "startAlarm(): " + alarm.getAlarmTimeStringParcelable());
+
             mediaPlayer = new MediaPlayer();
 
             if (alarm.shouldVibrate()) {
@@ -80,12 +91,19 @@ public class AlarmAlertActivity extends Activity {
             }
 
             try {
+
                 mediaPlayer.setVolume(1.0f, 1.0f);
                 mediaPlayer.setDataSource(this, Uri.parse(alarm.getTonePath()));
                 mediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
                 mediaPlayer.setLooping(true);
                 mediaPlayer.prepare();
                 mediaPlayer.start();
+
+                //TODO: ringtone does not resolve media player problem, need to understand why alarm does not ring with media player
+
+                ringtone.play();
+
+
             } catch (Exception e) {
             } finally {
                 mediaPlayer.release();
@@ -113,6 +131,11 @@ public class AlarmAlertActivity extends Activity {
             try {
                 mediaPlayer.release();
             } catch (Exception e) {
+
+            }
+            try {
+                ringtone.stop();
+            }catch (Exception e) {
 
             }
         }
@@ -153,7 +176,6 @@ public class AlarmAlertActivity extends Activity {
             if (!alarmActive || alarm == null) {
                 return;
             }
-
             v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
             stopAlarm();
             finish();
@@ -170,6 +192,7 @@ public class AlarmAlertActivity extends Activity {
                             + incomingNumber);
                     try {
                         mediaPlayer.pause();
+                        //ringtone.stop();
                     } catch (Exception e) {
 
                     }
@@ -178,6 +201,7 @@ public class AlarmAlertActivity extends Activity {
                     Log.d(getClass().getSimpleName(), "Call State Idle");
                     try {
                         mediaPlayer.start();
+                        //ringtone.play();
                     } catch (Exception e) {
 
                     }

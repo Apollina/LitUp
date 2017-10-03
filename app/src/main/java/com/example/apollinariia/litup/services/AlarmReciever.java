@@ -2,6 +2,9 @@ package com.example.apollinariia.litup.services;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
@@ -34,6 +37,7 @@ public class AlarmReciever extends WakefulBroadcastReceiver{
 
             // Start the service, keeping the device awake while it is launching.
             startWakefulService(context, serviceIntent);
+
         }
 }
 
