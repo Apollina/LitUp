@@ -109,6 +109,7 @@ public class AlarmAlertActivity extends Activity {
                 mediaPlayer.release();
                 alarmActive = false;
             }
+
         }
     }
 
