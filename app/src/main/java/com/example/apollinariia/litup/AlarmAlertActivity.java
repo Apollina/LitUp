@@ -8,6 +8,7 @@ import android.app.FragmentTransaction;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.Ringtone;
@@ -26,10 +27,19 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.apollinariia.litup.data.AlarmDbHelper;
+import com.example.apollinariia.litup.sensors.AccelerometerDetector;
+import com.example.apollinariia.litup.sensors.AccelerometerGraph;
+import com.example.apollinariia.litup.sensors.AccelerometerProcessing;
+import com.example.apollinariia.litup.sensors.OnStepCountChangeListener;
+
+import org.achartengine.GraphicalView;
 
 import static com.example.apollinariia.litup.R.id.container;
 
@@ -43,10 +53,18 @@ public class AlarmAlertActivity extends Activity {
     private boolean alarmActive;
     private ClickListener clickListener;
     Ringtone ringtone;
+    private AccelerometerGraph mAccelGraph;
+    private AccelerometerDetector mAccelDetector;
+    private TextView mStepCountTextView;
+    private int mStepCount = 0;
+
+    private final AccelerometerProcessing mAccelerometerProcessing = AccelerometerProcessing.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mStepCountTextView = (TextView) findViewById(R.id.mStepCount);
+        mAccelGraph = new AccelerometerGraph(AccelerometerProcessing.THRESH_INIT_VALUE);
 
         final Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
@@ -102,7 +120,27 @@ public class AlarmAlertActivity extends Activity {
         }
         ringtone = RingtoneManager.getRingtone(getApplicationContext(), alarmUri);
 
+        GraphicalView graphicalView = mAccelGraph.getView(this);
+        graphicalView.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT));
 
+        LinearLayout graphLayout = (LinearLayout)findViewById(R.id.graph_layout);
+        graphLayout.addView(graphicalView);
+
+        SensorManager sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+        mAccelDetector = new AccelerometerDetector(sensorManager, mAccelGraph);
+        mAccelDetector.setStepCountChangeListener(new OnStepCountChangeListener() {
+            @Override
+            public void onStepCountChange(long eventMsecTime) {
+                mStepCountTextView = (TextView) findViewById(R.id.mStepCount);
+
+                mStepCount++;
+                mStepCountTextView.setText(String.valueOf(mStepCount));
+            }
+        });
+        initializeSeekBar();
+        mAccelDetector.startDetector();
         startAlarm();
     }
 
@@ -133,6 +171,9 @@ public class AlarmAlertActivity extends Activity {
                 ringtone.play();
 
 
+
+
+
             } catch (Exception e) {
             } finally {
                 mediaPlayer.release();
@@ -141,13 +182,45 @@ public class AlarmAlertActivity extends Activity {
 
         }
     }
+    private void initializeSeekBar() {
+        final SeekBar seekBar = (SeekBar) findViewById(R.id.offset_seekBar);
+        seekBar.setMax(130 - 90);
+        seekBar.setProgress((int) AccelerometerProcessing.getInstance().getThresholdValue());
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                double threshold = AccelerometerProcessing.THRESH_INIT_VALUE * (progress + 90) / 100;
+                mAccelerometerProcessing.onThresholdChange(threshold);
+                mAccelGraph.onThresholdChange(threshold);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+    }
+
 
     private void stopAlarm() {
         if (alarm != null) {
             Log.d(TAG, "stop alarm");
             alarm.setActive(false);
             AlarmDbHelper.update(alarm);
-
+            SensorManager sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+            mAccelDetector = new AccelerometerDetector(sensorManager, mAccelGraph);
+            mAccelDetector.setStepCountChangeListener(new OnStepCountChangeListener() {
+                @Override
+                public void onStepCountChange(long eventMsecTime) {
+                    ++mStepCount;
+                    mStepCountTextView.setText(String.valueOf(mStepCount));
+                }
+            });
             try {
                 vibrator.cancel();
             } catch (Exception e) {
@@ -170,7 +243,6 @@ public class AlarmAlertActivity extends Activity {
             }
         }
     }
-
 
     @Override
     protected void onNewIntent(Intent intent) {

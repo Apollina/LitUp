@@ -10,8 +10,13 @@ import android.util.Log;
 /**
  * Created by amirhossein on 10/3/2017.
  */
+import org.achartengine.GraphicalView;
 
+/**
+ * Configuring accelerometer and handling its results.
+ */
 public class AccelerometerDetector implements SensorEventListener {
+
     private static final String TAG = AccelerometerDetector.class.getSimpleName();
     /**
      * Suggested periods:
