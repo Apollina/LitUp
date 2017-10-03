@@ -20,6 +20,15 @@
             android:layout_gravity="center"
             android:text="END" />
 
+        <Button
+            android:id="@+id/button_snooze"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:tag="clear"
+            android:layout_gravity="center"
+            android:text="SNOOZE" />
+
     </TableRow>
 
 </TableLayout>

@@ -1,6 +1,11 @@
 package com.example.apollinariia.litup;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -12,13 +17,21 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+import android.text.format.DateUtils;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.HapticFeedbackConstants;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.apollinariia.litup.data.AlarmDbHelper;
+
+import static com.example.apollinariia.litup.R.id.container;
 
 
 public class AlarmAlertActivity extends Activity {
@@ -48,6 +61,20 @@ public class AlarmAlertActivity extends Activity {
         clickListener = new ClickListener();
         findViewById(R.id.button_deactivate).setOnClickListener(clickListener);
 
+        Button buttonSnooze = (Button) findViewById(R.id.button_snooze);
+        buttonSnooze.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View arg0, MotionEvent arg1) {
+                alarm.snooze(getApplicationContext());
+                stopAlarm();
+
+                Intent i=new Intent(AlarmAlertActivity.this,MainActivity.class);
+                startActivity(i);
+
+                return true;
+            }
+        });
+
+
         final Bundle bundle = getIntent().getExtras();
 
         if (bundle != null) {
@@ -75,6 +102,7 @@ public class AlarmAlertActivity extends Activity {
         }
         ringtone = RingtoneManager.getRingtone(getApplicationContext(), alarmUri);
 
+
         startAlarm();
     }
 
@@ -98,6 +126,7 @@ public class AlarmAlertActivity extends Activity {
                 mediaPlayer.setLooping(true);
                 mediaPlayer.prepare();
                 mediaPlayer.start();
+
 
                 //TODO: ringtone does not resolve media player problem, need to understand why alarm does not ring with media player
 
@@ -141,6 +170,7 @@ public class AlarmAlertActivity extends Activity {
             }
         }
     }
+
 
     @Override
     protected void onNewIntent(Intent intent) {

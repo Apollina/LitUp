@@ -78,6 +78,38 @@ public class Alarm implements Parcelable {
         Toast.makeText(context, getTimeUntilNextAlarmMessage(), Toast.LENGTH_SHORT).show();
     }
 
+    public void snooze(Context context) {
+        this.context = context;
+        active = true;
+
+        int seconds = 30;
+
+        Intent myIntent = new Intent(context, AlarmReciever.class);
+
+        final Bundle bundle = new Bundle();
+        bundle.putByteArray(Alarm.TAG, Parcelables.toByteArray(this));
+        myIntent.putExtras(bundle);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + seconds * 1000, pendingIntent);
+
+        Toast.makeText(context, "Snoozed to " + seconds + " seconds.",
+                Toast.LENGTH_SHORT).show();
+
+        // Enable {@code BootReceiver} to automatically restart the alarm when the
+        // device is rebooted.
+        ComponentName receiver = new ComponentName(context, BootReciever.class);
+        PackageManager pm = context.getPackageManager();
+
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP);
+    }
+
+
     public void cancelAlarm(Context context) {
         active = true;
 
