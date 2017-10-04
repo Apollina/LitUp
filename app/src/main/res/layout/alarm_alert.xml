@@ -29,11 +29,6 @@
             android:layout_gravity="center"
             android:text="SNOOZE" />
 
-        <TextView
-            android:id="@+id/mStepCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
 
     </TableRow>
     <TableRow>
@@ -41,8 +36,9 @@
         android:orientation="vertical"
         android:id="@+id/graph_layout"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_weight="8"/>
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        android:visibility="invisible"/>
     </TableRow>
     <TableRow>
     <SeekBar
@@ -51,6 +47,15 @@
         android:id="@+id/offset_seekBar"
         android:layout_gravity="center"
         android:layout_weight="7"
-        android:foregroundGravity="center" />
+        android:foregroundGravity="center"
+        android:visibility="invisible"/>
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:id="@+id/mStepCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
     </TableRow>
 </TableLayout>

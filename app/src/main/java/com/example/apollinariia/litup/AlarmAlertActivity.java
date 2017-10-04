@@ -137,6 +137,10 @@ public class AlarmAlertActivity extends Activity {
 
                 mStepCount++;
                 mStepCountTextView.setText(String.valueOf(mStepCount));
+                if (mStepCount == 25) {
+                    stopAlarm();
+                    finish();
+                }
             }
         });
         initializeSeekBar();
@@ -169,10 +173,6 @@ public class AlarmAlertActivity extends Activity {
                 //TODO: ringtone does not resolve media player problem, need to understand why alarm does not ring with media player
 
                 ringtone.play();
-
-
-
-
 
             } catch (Exception e) {
             } finally {
