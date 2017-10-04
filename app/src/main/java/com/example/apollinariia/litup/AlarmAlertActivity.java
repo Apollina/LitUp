@@ -1,6 +1,11 @@
 package com.example.apollinariia.litup;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.SensorManager;
@@ -10,12 +15,14 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+import android.text.format.DateUtils;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.HapticFeedbackConstants;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -24,6 +31,7 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.apollinariia.litup.data.AlarmDbHelper;
 import com.example.apollinariia.litup.sensors.AccelerometerDetector;
@@ -33,15 +41,14 @@ import com.example.apollinariia.litup.sensors.OnStepCountChangeListener;
 
 import org.achartengine.GraphicalView;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import static com.example.apollinariia.litup.R.id.container;
 
 
 public class AlarmAlertActivity extends Activity {
 
     private static final String TAG = "AlarmAlertActivity";
     private Alarm alarm;
-    private MediaPlayer mediaPlayer = null;
+    private MediaPlayer mediaPlayer=null;
     private Vibrator vibrator;
     private boolean alarmActive;
     private ClickListener clickListener;
@@ -50,7 +57,7 @@ public class AlarmAlertActivity extends Activity {
     private AccelerometerDetector mAccelDetector;
     private TextView mStepCountTextView;
     private int mStepCount = 0;
-    private TextView test;
+
     private final AccelerometerProcessing mAccelerometerProcessing = AccelerometerProcessing.getInstance();
 
     @Override
@@ -77,6 +84,9 @@ public class AlarmAlertActivity extends Activity {
             public boolean onTouch(View arg0, MotionEvent arg1) {
                 alarm.snooze(getApplicationContext());
                 stopAlarm();
+
+                Intent i=new Intent(AlarmAlertActivity.this,MainActivity.class);
+                startActivity(i);
 
                 return true;
             }
@@ -110,41 +120,24 @@ public class AlarmAlertActivity extends Activity {
         }
         ringtone = RingtoneManager.getRingtone(getApplicationContext(), alarmUri);
 
-        //creates a graph of changes in accelerometer (the view is set to invisible mainly for testing purposes).
         GraphicalView graphicalView = mAccelGraph.getView(this);
         graphicalView.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT));
 
-        LinearLayout graphLayout = (LinearLayout) findViewById(R.id.graph_layout);
+        LinearLayout graphLayout = (LinearLayout)findViewById(R.id.graph_layout);
         graphLayout.addView(graphicalView);
 
-        //initializing sensors, step counter, and shaking (shaking with time interval).
-        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        SensorManager sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
         mAccelDetector = new AccelerometerDetector(sensorManager, mAccelGraph);
         mAccelDetector.setStepCountChangeListener(new OnStepCountChangeListener() {
             @Override
             public void onStepCountChange(long eventMsecTime) {
-                //show steps!
                 mStepCountTextView = (TextView) findViewById(R.id.mStepCount);
+
                 mStepCount++;
                 mStepCountTextView.setText(String.valueOf(mStepCount));
-
-                if (mStepCount == 1) {
-                    new CountDownTimer(1500, 1000) {
-                        public void onTick(long millisUntilFinished) {
-                        }
-                        public void onFinish() {
-                            if (mStepCount >= 3) {
-                                alarm.snooze(getApplicationContext());
-                                stopAlarm();
-                                Intent i = new Intent(AlarmAlertActivity.this, MainActivity.class);
-                                startActivity(i);
-                                mStepCount = 0;
-                            }
-                        }
-                    }.start();
-                } else if (mStepCount == 25) {
+                if (mStepCount == 25) {
                     stopAlarm();
                     finish();
                 }
@@ -189,7 +182,6 @@ public class AlarmAlertActivity extends Activity {
 
         }
     }
-
     private void initializeSeekBar() {
         final SeekBar seekBar = (SeekBar) findViewById(R.id.offset_seekBar);
         seekBar.setMax(130 - 90);
@@ -200,7 +192,6 @@ public class AlarmAlertActivity extends Activity {
                 double threshold = AccelerometerProcessing.THRESH_INIT_VALUE * (progress + 90) / 100;
                 mAccelerometerProcessing.onThresholdChange(threshold);
                 mAccelGraph.onThresholdChange(threshold);
-                Log.d("ADebugTag", "Value: " + Double.toString(threshold));
             }
 
             @Override
@@ -221,7 +212,7 @@ public class AlarmAlertActivity extends Activity {
             Log.d(TAG, "stop alarm");
             alarm.setActive(false);
             AlarmDbHelper.update(alarm);
-            SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+            SensorManager sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
             mAccelDetector = new AccelerometerDetector(sensorManager, mAccelGraph);
             mAccelDetector.setStepCountChangeListener(new OnStepCountChangeListener() {
                 @Override
@@ -247,7 +238,7 @@ public class AlarmAlertActivity extends Activity {
             }
             try {
                 ringtone.stop();
-            } catch (Exception e) {
+            }catch (Exception e) {
 
             }
         }
