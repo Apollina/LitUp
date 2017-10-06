@@ -30,6 +30,9 @@ import com.example.apollinariia.litup.sensors.AccelerometerDetector;
 import com.example.apollinariia.litup.sensors.AccelerometerGraph;
 import com.example.apollinariia.litup.sensors.AccelerometerProcessing;
 import com.example.apollinariia.litup.sensors.OnStepCountChangeListener;
+import com.mbientlab.metawear.MetaWearBoard;
+import com.mbientlab.metawear.module.Led;
+import com.mbientlab.metawear.module.Switch;
 
 import org.achartengine.GraphicalView;
 
@@ -52,6 +55,7 @@ public class AlarmAlertActivity extends Activity {
     private int mStepCount = 0;
     private TextView test;
     private final AccelerometerProcessing mAccelerometerProcessing = AccelerometerProcessing.getInstance();
+    private MetaWearBoard board;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +85,18 @@ public class AlarmAlertActivity extends Activity {
                 return true;
             }
         });
+
+        /*Switch swi = (Switch) findViewById(R.id.led_ctrl);
+        swi.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            Led led= board.getModule(Led.class);
+            if (isChecked) {
+                led.editPattern(Led.Color.BLUE, Led.PatternPreset.SOLID)
+                        .repeatCount(Led.PATTERN_REPEAT_INDEFINITELY)
+                        .commit();
+                led.play();
+            } else {
+                led.stop(true);
+            }*/
 
 
         final Bundle bundle = getIntent().getExtras();
@@ -154,6 +170,7 @@ public class AlarmAlertActivity extends Activity {
         mAccelDetector.startDetector();
         startAlarm();
     }
+
 
     private void startAlarm() {
         if (alarm != null && !alarm.getTonePath().isEmpty()) {

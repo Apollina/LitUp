@@ -36,9 +36,9 @@
         android:orientation="vertical"
         android:id="@+id/graph_layout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="200dp"
         android:layout_weight="8"
-        android:visibility="invisible"/>
+        android:visibility="visible"/>
     </TableRow>
     <TableRow>
     <SeekBar
@@ -48,7 +48,7 @@
         android:layout_gravity="center"
         android:layout_weight="7"
         android:foregroundGravity="center"
-        android:visibility="invisible"/>
+        android:visibility="visible"/>
     </TableRow>
     <TableRow>
         <TextView

@@ -16,6 +16,12 @@ allprojects {
     repositories {
         jcenter()
     }
+    repositories {
+        ivy {
+            url "https://mbientlab.com/releases/ivyrep"
+            layout "gradle"
+        }
+    }
 }
 
 task clean(type: Delete) {
