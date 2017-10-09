@@ -9,9 +9,10 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/imageView4"
             android:layout_width="150dp"
             android:layout_height="200dp"
-            android:src="@drawable/running2" />
+            android:src="@drawable/ic_run" />
 
         <ImageView
             android:id="@+id/imageView3"

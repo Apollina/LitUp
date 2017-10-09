@@ -22,7 +22,7 @@
         android:background="?attr/colorPrimary"
         android:elevation="6dp"
         android:minHeight="?attr/actionBarSize"
-        app:tabIndicatorColor="#a6ff00"
+        app:tabIndicatorColor="#FFE2CA"
         app:tabMode="fixed"
         app:tabSelectedTextColor="#ffffff"
         app:tabTextColor="#d3d3d3" />
