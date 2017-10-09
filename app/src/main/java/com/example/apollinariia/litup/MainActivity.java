@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -24,9 +23,6 @@ import bolts.Continuation;
 import bolts.Task;
 
 public class MainActivity extends AppCompatActivity implements BleScannerFragment.ScannerCommunicationBus, ServiceConnection {
-
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-    private ViewPager mViewPager;
 
     public static final int REQUEST_START_APP = 1;
 
@@ -56,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements BleScannerFragmen
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ///< Unbind the service when the activity is destroyed
+        //Unbind the service when the activity is destroyed
         getApplicationContext().unbindService(this);
     }
 

@@ -7,10 +7,6 @@ import com.example.apollinariia.litup.Alarm;
 import com.example.apollinariia.litup.AlarmList;
 import com.example.apollinariia.litup.data.AlarmDbHelper;
 
-/**
- * Created by Apollinariia on 10/1/2017.
- */
-
 public class MyItemTouchHelper extends ItemTouchHelper.SimpleCallback {
 
     private AlarmList alarmFragment;

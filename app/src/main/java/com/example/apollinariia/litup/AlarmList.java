@@ -1,10 +1,5 @@
 package com.example.apollinariia.litup;
 
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.AnimatedVectorDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -16,9 +11,6 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -26,10 +18,8 @@ import android.widget.Toast;
 import com.example.apollinariia.litup.cursor.CustomCursorAdapter;
 import com.example.apollinariia.litup.data.AlarmDbHelper;
 import com.example.apollinariia.litup.utility.MyItemTouchHelper;
-import com.mbientlab.metawear.android.BtleService;
 
 import java.util.List;
-
 
 public class AlarmList extends Fragment implements View.OnClickListener {
 
@@ -103,7 +93,6 @@ public class AlarmList extends Fragment implements View.OnClickListener {
         }
     }
 
-
     public void setPosition(int position) {
         this.position = position;
     }
@@ -156,7 +145,6 @@ public class AlarmList extends Fragment implements View.OnClickListener {
                 fragment.setArguments(bundle);
                 fragment.show(getFragmentManager(), "timePicker");
                 break;
-
         }
     }
 }

@@ -4,8 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.apollinariia.litup.setup.DeviceSetupActivityFragment;
-
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
@@ -33,11 +31,10 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        // null == No title
         if (position == 0) {
             return "Alarms";
-        } else  {
-            return "Metawear";
+        } else {
+            return "Info";
         }
     }
 }

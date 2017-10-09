@@ -13,26 +13,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.app.Activity;
-import android.bluetooth.BluetoothDevice;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.IBinder;
-import android.support.v4.app.Fragment;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.apollinariia.litup.R;
 import com.mbientlab.metawear.MetaWearBoard;
 import com.mbientlab.metawear.android.BtleService;
 
-/**
- * A placeholder fragment containing a simple view.
- */
+
 public class DeviceSetupActivityFragment extends Fragment implements ServiceConnection {
 
     public interface FragmentSettings {
@@ -41,8 +27,6 @@ public class DeviceSetupActivityFragment extends Fragment implements ServiceConn
 
     private MetaWearBoard metawear = null;
     private FragmentSettings settings;
-    private TabLayout tabLayout;
-    private int position;
 
     public DeviceSetupActivityFragment() {
     }
@@ -64,7 +48,7 @@ public class DeviceSetupActivityFragment extends Fragment implements ServiceConn
     public void onDestroy() {
         super.onDestroy();
 
-        ///< Unbind the service when the activity is destroyed
+        // Unbind the service when the activity is destroyed
         getActivity().getApplicationContext().unbindService(this);
     }
 
@@ -72,17 +56,7 @@ public class DeviceSetupActivityFragment extends Fragment implements ServiceConn
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setRetainInstance(true);
 
-        /*if (getActivity() != null) {
-            tabLayout = (TabLayout) getActivity().findViewById(R.id.tabs);
-        }
-
-        tabLayout.getTabAt(position);*/
-
         return inflater.inflate(R.layout.fragment_settings, container, false);
-    }
-
-    public void setPosition(int position) {
-        this.position = position;
     }
 
     @Override
@@ -91,13 +65,7 @@ public class DeviceSetupActivityFragment extends Fragment implements ServiceConn
     }
 
     @Override
-    public void onServiceDisconnected(ComponentName name) {
+    public void onServiceDisconnected(ComponentName name) {}
 
-    }
-
-    /**
-     * Called when the app has reconnected to the board
-     */
-    public void reconnected() {
-    }
+    public void reconnected() {}
 }

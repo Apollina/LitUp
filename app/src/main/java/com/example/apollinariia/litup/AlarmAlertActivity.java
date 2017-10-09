@@ -1,12 +1,8 @@
 package com.example.apollinariia.litup;
 
 import android.app.Activity;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -15,36 +11,24 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.IBinder;
 import android.os.Vibrator;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.view.HapticFeedbackConstants;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.apollinariia.litup.data.AlarmDbHelper;
 import com.example.apollinariia.litup.sensors.AccelerometerDetector;
 import com.example.apollinariia.litup.sensors.AccelerometerGraph;
 import com.example.apollinariia.litup.sensors.AccelerometerProcessing;
 import com.example.apollinariia.litup.sensors.OnStepCountChangeListener;
-import com.mbientlab.metawear.MetaWearBoard;
-import com.mbientlab.metawear.Route;
-import com.mbientlab.metawear.android.BtleService;
-import com.mbientlab.metawear.module.Led;
+import com.mbientlab.metawear.Data;
 
 import org.achartengine.GraphicalView;
-
-import bolts.Continuation;
-import bolts.Task;
 
 
 public class AlarmAlertActivity extends Activity {
@@ -59,14 +43,17 @@ public class AlarmAlertActivity extends Activity {
     private AccelerometerDetector mAccelDetector;
     private TextView mStepCountTextView;
     private int mStepCount = 0;
-    private TextView test;
+    public TextView gyro;
     private final AccelerometerProcessing mAccelerometerProcessing = AccelerometerProcessing.getInstance();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         mStepCountTextView = (TextView) findViewById(R.id.mStepCount);
+        gyro = (TextView) findViewById(R.id.textGyro);
+
         mAccelGraph = new AccelerometerGraph(AccelerometerProcessing.THRESH_INIT_VALUE);
 
         final Window window = getWindow();
@@ -80,6 +67,7 @@ public class AlarmAlertActivity extends Activity {
         AlarmDbHelper.init(getBaseContext());
 
         final Bundle bundle = getIntent().getExtras();
+
 
         if (bundle != null) {
             alarm = Parcelables.toParcelableAlarm(bundle.getByteArray(Alarm.TAG));
@@ -124,7 +112,7 @@ public class AlarmAlertActivity extends Activity {
                 //show steps!
                 mStepCountTextView = (TextView) findViewById(R.id.mStepCount);
                 mStepCount++;
-                mStepCountTextView.setText(String.valueOf(mStepCount));
+                mStepCountTextView.setText(getResources().getString(R.string.steps) + String.valueOf(mStepCount));
 
                 if (mStepCount == 1) {
                     new CountDownTimer(1000, 1000) {
@@ -174,9 +162,6 @@ public class AlarmAlertActivity extends Activity {
                 mediaPlayer.prepare();
                 mediaPlayer.start();
 
-
-                //TODO: ringtone does not resolve media player problem, need to understand why alarm does not ring with media player
-
                 ringtone.play();
 
             } catch (Exception e) {
@@ -213,7 +198,6 @@ public class AlarmAlertActivity extends Activity {
         });
     }
 
-
     private void stopAlarm() {
         if (alarm != null) {
             Log.d(TAG, "stop alarm");
@@ -231,22 +215,18 @@ public class AlarmAlertActivity extends Activity {
             try {
                 vibrator.cancel();
             } catch (Exception e) {
-
             }
             try {
                 mediaPlayer.stop();
             } catch (Exception e) {
-
             }
             try {
                 mediaPlayer.release();
             } catch (Exception e) {
-
             }
             try {
                 ringtone.stop();
             } catch (Exception e) {
-
             }
         }
     }
@@ -289,7 +269,6 @@ public class AlarmAlertActivity extends Activity {
                             + incomingNumber);
                     try {
                         mediaPlayer.pause();
-                        //ringtone.stop();
                     } catch (Exception e) {
 
                     }
@@ -298,9 +277,7 @@ public class AlarmAlertActivity extends Activity {
                     Log.d(getClass().getSimpleName(), "Call State Idle");
                     try {
                         mediaPlayer.start();
-                        //ringtone.play();
                     } catch (Exception e) {
-
                     }
                     break;
             }

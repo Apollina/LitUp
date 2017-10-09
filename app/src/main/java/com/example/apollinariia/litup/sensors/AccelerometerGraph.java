@@ -1,8 +1,5 @@
 package com.example.apollinariia.litup.sensors;
 
-/**
- * Created by amirhossein on 10/3/2017.
- */
 import android.content.Context;
 import android.graphics.Color;
 
@@ -15,8 +12,6 @@ import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
 public class AccelerometerGraph implements OnThresholdChangeListener {
-
-    private static final String TAG = AccelerometerGraph.class.getSimpleName();
 
     private static final String THRESH = "Threshold";
     private static final String TITLE = "Accelerometer data";
@@ -35,8 +30,6 @@ public class AccelerometerGraph implements OnThresholdChangeListener {
     private GraphicalView view;
 
     private int mPointsCount = 0;
-
-    private AccelerometerProcessing mAccelerometerProcessing = AccelerometerProcessing.getInstance();
 
     public AccelerometerGraph(double threshold) {
 
@@ -69,9 +62,6 @@ public class AccelerometerGraph implements OnThresholdChangeListener {
         mRenderer.setZoomEnabled(false, false);
     }
 
-    /**
-     * Adds threshold line to the plot.
-     */
     private void addThresholdGraph() {
         mThreshold = new TimeSeries(THRESH);
         mDataset.addSeries(mThreshold);
@@ -81,11 +71,8 @@ public class AccelerometerGraph implements OnThresholdChangeListener {
         mRenderer.addSeriesRenderer(renderer);
     }
 
-    /**
-     * Update all graphs on the View.
-     * @param t time plotting argument
-     * @param v an array of values to plot
-     */
+
+    //Update all graphs on the View.
     public void invalidate(double t, double[] v) {
 
         // signals:
@@ -115,9 +102,8 @@ public class AccelerometerGraph implements OnThresholdChangeListener {
     }
 
 
-
-    public GraphicalView getView(Context context){
-        view =  ChartFactory.getLineChartView(context, mDataset, mRenderer);
+    public GraphicalView getView(Context context) {
+        view = ChartFactory.getLineChartView(context, mDataset, mRenderer);
         return view;
     }
 

@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.apollinariia.litup.Alarm;
-import com.example.apollinariia.litup.data.AlarmContract.*;
 
 import java.util.ArrayList;
 import java.util.List;

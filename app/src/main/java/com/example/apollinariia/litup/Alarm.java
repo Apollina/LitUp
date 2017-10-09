@@ -66,8 +66,6 @@ public class Alarm implements Parcelable {
 
         alarmManager.setAlarmClock(new AlarmManager.AlarmClockInfo(dateTime.getMillis(), pendingIntent), pendingIntent);
 
-        // Enable {@code BootReceiver} to automatically restart the alarm when the
-        // device is rebooted.
         ComponentName receiver = new ComponentName(context, BootReciever.class);
         PackageManager pm = context.getPackageManager();
 
@@ -99,8 +97,6 @@ public class Alarm implements Parcelable {
         Toast.makeText(context, "Snoozed to " + seconds + " seconds.",
                 Toast.LENGTH_SHORT).show();
 
-        // Enable {@code BootReceiver} to automatically restart the alarm when the
-        // device is rebooted.
         ComponentName receiver = new ComponentName(context, BootReciever.class);
         PackageManager pm = context.getPackageManager();
 
@@ -233,7 +229,6 @@ public class Alarm implements Parcelable {
                 }
             }
         }
-
 
         return message;
     }

@@ -3,10 +3,6 @@ package com.example.apollinariia.litup;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by Apollinariia on 9/27/2017.
- */
-
 
 public class Parcelables {
     public static byte[] toByteArray(Parcelable parcelable) {

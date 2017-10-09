@@ -12,7 +12,6 @@ import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -30,9 +29,9 @@ import static android.content.DialogInterface.*;
 
 public class DeviceSetupActivity extends AppCompatActivity implements ServiceConnection, FragmentSettings {
 
-    public final static String EXTRA_BT_DEVICE= "com.mbientlab.metawear.starter.DeviceSetupActivity.EXTRA_BT_DEVICE";
+    public final static String EXTRA_BT_DEVICE = "com.mbientlab.metawear.starter.DeviceSetupActivity.EXTRA_BT_DEVICE";
 
-    public static class ReconnectDialogFragment extends DialogFragment implements  ServiceConnection {
+    public static class ReconnectDialogFragment extends DialogFragment implements ServiceConnection {
         private static final String KEY_BLUETOOTH_DEVICE = "com.mbientlab.metawear.starter.DeviceSetupActivity.ReconnectDialogFragment.KEY_BLUETOOTH_DEVICE";
 
         private ProgressDialog reconnectDialog = null;
@@ -74,24 +73,25 @@ public class DeviceSetupActivity extends AppCompatActivity implements ServiceCon
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            currentMwBoard= ((BtleService.LocalBinder) service).getMetaWearBoard(btDevice);
+            currentMwBoard = ((BtleService.LocalBinder) service).getMetaWearBoard(btDevice);
         }
 
         @Override
-        public void onServiceDisconnected(ComponentName name) { }
+        public void onServiceDisconnected(ComponentName name) {
+        }
     }
 
     private BluetoothDevice btDevice;
     private MetaWearBoard metawear;
 
-    private final String RECONNECT_DIALOG_TAG= "reconnect_dialog_tag";
+    private final String RECONNECT_DIALOG_TAG = "reconnect_dialog_tag";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_setup);
 
-        btDevice= getIntent().getParcelableExtra(EXTRA_BT_DEVICE);
+        btDevice = getIntent().getParcelableExtra(EXTRA_BT_DEVICE);
         getApplicationContext().bindService(new Intent(this, BtleService.class), this, BIND_AUTO_CREATE);
     }
 
@@ -104,7 +104,7 @@ public class DeviceSetupActivity extends AppCompatActivity implements ServiceCon
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.action_disconnect:
                 metawear.disconnectAsync();
                 finish();
@@ -129,7 +129,7 @@ public class DeviceSetupActivity extends AppCompatActivity implements ServiceCon
         metawear.onUnexpectedDisconnect(new MetaWearBoard.UnexpectedDisconnectHandler() {
             @Override
             public void disconnected(int status) {
-                ReconnectDialogFragment dialogFragment= ReconnectDialogFragment.newInstance(btDevice);
+                ReconnectDialogFragment dialogFragment = ReconnectDialogFragment.newInstance(btDevice);
                 dialogFragment.show(getSupportFragmentManager(), RECONNECT_DIALOG_TAG);
 
                 metawear.connectAsync().continueWithTask(new Continuation<Void, Task<Void>>() {
@@ -160,9 +160,7 @@ public class DeviceSetupActivity extends AppCompatActivity implements ServiceCon
     }
 
     @Override
-    public void onServiceDisconnected(ComponentName name) {
-
-    }
+    public void onServiceDisconnected(ComponentName name) {}
 
     @Override
     public BluetoothDevice getBtDevice() {

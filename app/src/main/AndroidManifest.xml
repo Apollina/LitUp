@@ -47,6 +47,7 @@
             android:name=".services.Schedulle"
             android:process="com.example.apollinariia.litup.alarm.serviceProcess" />
 
+        <activity android:name=".sensors.GyroActivity"></activity>
     </application>
 
 </manifest>

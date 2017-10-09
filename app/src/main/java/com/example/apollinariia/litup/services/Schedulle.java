@@ -8,10 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
 import com.example.apollinariia.litup.AlarmAlertActivity;
-import com.example.apollinariia.litup.services.AlarmReciever;
-import com.example.apollinariia.litup.MainActivity;
 import com.example.apollinariia.litup.R;
-
 
 
 /**
@@ -52,9 +49,6 @@ public class Schedulle extends IntentService {
 
         sendIntent.putExtras(bundle);
 
-//        final PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-//                sendIntent, 0);
-
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.mipmap.ic_launcher)
@@ -63,7 +57,6 @@ public class Schedulle extends IntentService {
                                 .bigText(msg))
                         .setContentText(msg);
 
-//        mBuilder.setContentIntent(contentIntent);
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
         sendIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(sendIntent);

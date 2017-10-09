@@ -1,12 +1,10 @@
 package com.example.apollinariia.litup.cursor;
 
-import android.graphics.drawable.AnimatedVectorDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -58,11 +56,6 @@ public class CustomCursorAdapter extends RecyclerView.Adapter<ItemViewHolder> {
         alarmTimeView.setText(alarm.getAlarmTimeString());
         alarmTimeView.setOnClickListener(alarmFragment);
         alarmTimeView.setTag(position);
-
-        //final TextView alarmDayView = holder.getAlarmTimeView();
-        //alarmTimeView.setText(alarm.getAlarmDayString());
-        //alarmTimeView.setOnClickListener(alarmFragment);
-        //alarmTimeView.setTag(position);
     }
 
     @Override

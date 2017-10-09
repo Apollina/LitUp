@@ -1,6 +1,5 @@
 package com.example.apollinariia.litup.sensors;
 
-import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -8,22 +7,13 @@ import android.hardware.SensorManager;
 import android.util.Log;
 
 /**
- * Created by amirhossein on 10/3/2017.
- */
-import org.achartengine.GraphicalView;
-
-/**
  * Configuring accelerometer and handling its results.
  */
 public class AccelerometerDetector implements SensorEventListener {
 
     private static final String TAG = AccelerometerDetector.class.getSimpleName();
-    /**
-     * Suggested periods:
-     * DELAY_UI: T ~= 60ms => f = 16,6Hz
-     * DELAY_GAME: T ~= 20ms => f = 50Hz
-     */
-    public static final int CONFIG_SENSOR = SensorManager.SENSOR_DELAY_GAME;
+
+    private static final int CONFIG_SENSOR = SensorManager.SENSOR_DELAY_GAME;
 
     private double[] mAccelResult = new double[AccelerometerSignals.count];
     private AccelerometerGraph mAccelGraph;
@@ -34,10 +24,6 @@ public class AccelerometerDetector implements SensorEventListener {
 
     private OnStepCountChangeListener mStepListener;
 
-    /**
-     * Listener setting for Step Detected event
-     * @param listener a listener.
-     */
     public void setStepCountChangeListener(OnStepCountChangeListener listener) {
         mStepListener = listener;
     }
@@ -45,7 +31,7 @@ public class AccelerometerDetector implements SensorEventListener {
     public AccelerometerDetector(SensorManager sensorManager, AccelerometerGraph graph) {
         mStepListener = null;
         mSensorManager = sensorManager;
-        if (mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null){
+        if (mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
             mAccel = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
             Log.d(TAG, "Success! There's a accelerometer. Resolution:" + mAccel.getResolution()
                     + " Max range: " + mAccel.getMaximumRange()
@@ -58,9 +44,8 @@ public class AccelerometerDetector implements SensorEventListener {
     }
 
     public void startDetector() {
-        // just starts just the accelerometer. It doesn't update the UI.
         if (!mSensorManager.registerListener(this, mAccel, CONFIG_SENSOR)) {
-            Log.d(TAG,"The sensor is not supported and unsuccessfully enabled.");
+            Log.d(TAG, "The sensor is not supported and unsuccessfully enabled.");
         }
     }
 
@@ -79,14 +64,12 @@ public class AccelerometerDetector implements SensorEventListener {
         mAccelResult[0] = mAccelProcessing.calcMagnitudeVector(0);
         mAccelResult[0] = mAccelProcessing.calcExpMovAvg(0);
         mAccelResult[1] = mAccelProcessing.calcMagnitudeVector(1);
-        //Log.d(TAG, "Vec: x= " + mAccelResult[0] + " C=" + eventMsecTime);
 
         // update graph with value and timestamp
         mAccelGraph.invalidate(eventMsecTime, mAccelResult);
 
         // step detection
         if (mAccelProcessing.stepDetected(1)) {
-            // step is found!
 
             // notify potential listeners
             if (mStepListener != null)
@@ -95,7 +78,5 @@ public class AccelerometerDetector implements SensorEventListener {
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-    }
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 }
