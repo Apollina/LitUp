@@ -1,49 +1,145 @@
 package com.example.apollinariia.litup;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
+import android.app.ProgressDialog;
+import android.bluetooth.BluetoothDevice;
+import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.os.IBinder;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.Button;
 
-import com.example.apollinariia.litup.services.AlarmReciever;
+import com.example.apollinariia.litup.setup.DeviceSetupActivity;
+import com.mbientlab.bletoolbox.scanner.BleScannerFragment;
+import com.mbientlab.metawear.MetaWearBoard;
+import com.mbientlab.metawear.android.BtleService;
 
-import java.util.Calendar;
+import java.util.UUID;
 
-public class MainActivity extends AppCompatActivity {
+import bolts.Continuation;
+import bolts.Task;
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
+public class MainActivity extends AppCompatActivity implements BleScannerFragment.ScannerCommunicationBus, ServiceConnection {
+
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     private ViewPager mViewPager;
+
+    public static final int REQUEST_START_APP = 1;
+
+    private BtleService.LocalBinder serviceBinder;
+    private MetaWearBoard metawear;
+
+    public Button btn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        btn = (Button) (Button) findViewById(R.id.btn_continue);
+        btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AppActivity.class);
+                startActivity(intent);
+            }
+        });
 
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        getApplicationContext().bindService(new Intent(this, BtleService.class), this, BIND_AUTO_CREATE);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ///< Unbind the service when the activity is destroyed
+        getApplicationContext().unbindService(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQUEST_START_APP:
+                ((BleScannerFragment) getFragmentManager().findFragmentById(R.id.scanner_fragment)).startBleScan();
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public UUID[] getFilterServiceUuids() {
+        return new UUID[]{MetaWearBoard.METAWEAR_GATT_SERVICE};
+    }
+
+    @Override
+    public long getScanDuration() {
+        return 10000L;
+    }
+
+    @Override
+    public void onDeviceSelected(final BluetoothDevice device) {
+        metawear = serviceBinder.getMetaWearBoard(device);
+
+        final ProgressDialog connectDialog = new ProgressDialog(this);
+        connectDialog.setTitle(getString(R.string.title_connecting));
+        connectDialog.setMessage(getString(R.string.message_wait));
+        connectDialog.setCancelable(false);
+        connectDialog.setCanceledOnTouchOutside(false);
+        connectDialog.setIndeterminate(true);
+        connectDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                metawear.disconnectAsync();
+            }
+        });
+        connectDialog.show();
+
+        metawear.connectAsync().continueWithTask(new Continuation<Void, Task<Void>>() {
+            @Override
+            public Task<Void> then(Task<Void> task) throws Exception {
+                return task.isCancelled() || !task.isFaulted() ? task : reconnect(metawear);
+            }
+        }).continueWith(new Continuation<Void, Void>() {
+            @Override
+            public Void then(Task<Void> task) throws Exception {
+                if (!task.isCancelled()) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            connectDialog.dismiss();
+                        }
+                    });
+                    Intent navActivityIntent = new Intent(MainActivity.this, DeviceSetupActivity.class);
+                    navActivityIntent.putExtra(DeviceSetupActivity.EXTRA_BT_DEVICE, device);
+                    startActivityForResult(navActivityIntent, REQUEST_START_APP);
+                }
+
+                return null;
+            }
+        });
+    }
+
+    @Override
+    public void onServiceConnected(ComponentName name, IBinder service) {
+        serviceBinder = (BtleService.LocalBinder) service;
+    }
+
+    @Override
+    public void onServiceDisconnected(ComponentName name) {
+
+    }
+
+    public static Task<Void> reconnect(final MetaWearBoard board) {
+        return board.connectAsync().continueWithTask(new Continuation<Void, Task<Void>>() {
+            @Override
+            public Task<Void> then(Task<Void> task) throws Exception {
+                return task.isFaulted() ? reconnect(board) : task;
+            }
+        });
     }
 }
+

@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.example.apollinariia.litup.cursor.CustomCursorAdapter;
 import com.example.apollinariia.litup.data.AlarmDbHelper;
 import com.example.apollinariia.litup.utility.MyItemTouchHelper;
+import com.mbientlab.metawear.android.BtleService;
 
 import java.util.List;
 

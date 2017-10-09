@@ -1,8 +1,12 @@
 package com.example.apollinariia.litup;
 
 import android.app.Activity;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -11,6 +15,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.IBinder;
 import android.os.Vibrator;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
@@ -24,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.apollinariia.litup.data.AlarmDbHelper;
 import com.example.apollinariia.litup.sensors.AccelerometerDetector;
@@ -31,13 +37,14 @@ import com.example.apollinariia.litup.sensors.AccelerometerGraph;
 import com.example.apollinariia.litup.sensors.AccelerometerProcessing;
 import com.example.apollinariia.litup.sensors.OnStepCountChangeListener;
 import com.mbientlab.metawear.MetaWearBoard;
+import com.mbientlab.metawear.Route;
+import com.mbientlab.metawear.android.BtleService;
 import com.mbientlab.metawear.module.Led;
-import com.mbientlab.metawear.module.Switch;
 
 import org.achartengine.GraphicalView;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import bolts.Continuation;
+import bolts.Task;
 
 
 public class AlarmAlertActivity extends Activity {
@@ -47,7 +54,6 @@ public class AlarmAlertActivity extends Activity {
     private MediaPlayer mediaPlayer = null;
     private Vibrator vibrator;
     private boolean alarmActive;
-    private ClickListener clickListener;
     Ringtone ringtone;
     private AccelerometerGraph mAccelGraph;
     private AccelerometerDetector mAccelDetector;
@@ -55,7 +61,7 @@ public class AlarmAlertActivity extends Activity {
     private int mStepCount = 0;
     private TextView test;
     private final AccelerometerProcessing mAccelerometerProcessing = AccelerometerProcessing.getInstance();
-    private MetaWearBoard board;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,32 +78,6 @@ public class AlarmAlertActivity extends Activity {
         setContentView(R.layout.alarm_alert);
 
         AlarmDbHelper.init(getBaseContext());
-
-        clickListener = new ClickListener();
-        findViewById(R.id.button_deactivate).setOnClickListener(clickListener);
-
-        Button buttonSnooze = (Button) findViewById(R.id.button_snooze);
-        buttonSnooze.setOnTouchListener(new View.OnTouchListener() {
-            public boolean onTouch(View arg0, MotionEvent arg1) {
-                alarm.snooze(getApplicationContext());
-                stopAlarm();
-
-                return true;
-            }
-        });
-
-        /*Switch swi = (Switch) findViewById(R.id.led_ctrl);
-        swi.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            Led led= board.getModule(Led.class);
-            if (isChecked) {
-                led.editPattern(Led.Color.BLUE, Led.PatternPreset.SOLID)
-                        .repeatCount(Led.PATTERN_REPEAT_INDEFINITELY)
-                        .commit();
-                led.play();
-            } else {
-                led.stop(true);
-            }*/
-
 
         final Bundle bundle = getIntent().getExtras();
 
@@ -147,14 +127,15 @@ public class AlarmAlertActivity extends Activity {
                 mStepCountTextView.setText(String.valueOf(mStepCount));
 
                 if (mStepCount == 1) {
-                    new CountDownTimer(1500, 1000) {
+                    new CountDownTimer(1000, 1000) {
                         public void onTick(long millisUntilFinished) {
                         }
+
                         public void onFinish() {
-                            if (mStepCount >= 3) {
+                            if (mStepCount >= 4) {
                                 alarm.snooze(getApplicationContext());
                                 stopAlarm();
-                                Intent i = new Intent(AlarmAlertActivity.this, MainActivity.class);
+                                Intent i = new Intent(AlarmAlertActivity.this, AppActivity.class);
                                 startActivity(i);
                                 mStepCount = 0;
                             }
@@ -296,19 +277,6 @@ public class AlarmAlertActivity extends Activity {
     protected void onDestroy() {
         stopAlarm();
         super.onDestroy();
-    }
-
-    public class ClickListener implements View.OnClickListener {
-
-        @Override
-        public void onClick(View v) {
-            if (!alarmActive || alarm == null) {
-                return;
-            }
-            v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
-            stopAlarm();
-            finish();
-        }
     }
 
     private class CallStateListener extends PhoneStateListener {

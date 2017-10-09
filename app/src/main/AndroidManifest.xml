@@ -7,8 +7,13 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-feature android:name="android.hardware.sensor.accelerometer"
+
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
         android:required="true" />
+
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,6 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service android:name="com.mbientlab.metawear.android.BtleService" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,19 +30,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".AppActivity" />
+        <activity android:name=".setup.DeviceSetupActivity" />
+        <activity android:name=".AlarmAlertActivity" />
 
-        <activity android:name=".AlarmAlertActivity"/>
-
-        <receiver android:name=".services.AlarmReciever"/>
-        <receiver android:name=".services.BootReciever"
+        <receiver android:name=".services.AlarmReciever" />
+        <receiver
+            android:name=".services.BootReciever"
             android:enabled="true">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <service android:name=".services.Schedulle"
-            android:process="com.example.apollinariia.litup.alarm.serviceProcess"/>
-    </application>
 
+        <service
+            android:name=".services.Schedulle"
+            android:process="com.example.apollinariia.litup.alarm.serviceProcess" />
+
+    </application>
 
 </manifest>
