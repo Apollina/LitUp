@@ -52,7 +52,7 @@ public class Schedulle extends IntentService {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle("Wake up, it is time. How about some refreshing suicide?")
+                        .setContentTitle("Wake up, it is time.")
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(msg))
                         .setContentText(msg);
