@@ -11,15 +11,7 @@
         android:layout_gravity="center"
         android:textAlignment="center">
     </TableRow>
-    <!--<TableRow>
-    <LinearLayout
-        android:orientation="vertical"
-        android:id="@+id/graph_layout"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_weight="8"
-        android:visibility="invisible"/>
-    </TableRow>-->
+
 
     <TableRow>
 
@@ -42,7 +34,7 @@
             android:layout_height="200dp"
             android:src="@drawable/shake_phone" />
     </TableRow>
-    <!--<TableRow>
+    <TableRow>
     <SeekBar
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -51,7 +43,7 @@
         android:layout_weight="7"
         android:foregroundGravity="center"
         android:visibility="invisible"/>
-    </TableRow>-->
+    </TableRow>
     <TableRow>
         <TextView
             android:id="@+id/mStepCount"
@@ -61,5 +53,13 @@
             android:textSize="@dimen/font_size_small"
             android:layout_weight="1"/>
     </TableRow>
-
+    <TableRow>
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/graph_layout"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_weight="8"
+            android:visibility="invisible"/>
+        </TableRow>
 </TableLayout>

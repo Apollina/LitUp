@@ -51,7 +51,6 @@ public class AlarmAlertActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         mStepCountTextView = (TextView) findViewById(R.id.mStepCount);
-        gyro = (TextView) findViewById(R.id.textGyro);
         mAccelGraph = new AccelerometerGraph(AccelerometerProcessing.THRESH_INIT_VALUE);
 
         final Window window = getWindow();
