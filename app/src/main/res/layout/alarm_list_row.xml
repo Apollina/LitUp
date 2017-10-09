@@ -29,7 +29,7 @@
             android:layout_toEndOf="@+id/view1"
             android:gravity="center"
             android:textAlignment="center"
-            android:textSize="@dimen/font_size" />
+            android:textSize="@dimen/font_size_small" />
 
         <Switch
             android:id="@+id/switch_btn"

@@ -26,6 +26,9 @@
     <string name="steps">Steps taken: </string>
     <string name="situps">Sit-Ups: </string>
 
+    <string name="metawear_connected">Your MetaWear device has been connected!</string>
+    <string name="no_dev">No Device -></string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

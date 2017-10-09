@@ -2,6 +2,7 @@ package com.example.apollinariia.litup.sensors;
 
 import android.util.Log;
 
+import com.mbientlab.metawear.AsyncDataProducer;
 import com.mbientlab.metawear.Data;
 import com.mbientlab.metawear.MetaWearBoard;
 import com.mbientlab.metawear.Route;
@@ -10,6 +11,10 @@ import com.mbientlab.metawear.builder.RouteBuilder;
 import com.mbientlab.metawear.builder.RouteComponent;
 import com.mbientlab.metawear.data.AngularVelocity;
 import com.mbientlab.metawear.module.GyroBmi160;
+
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.util.Calendar;
 
 import bolts.Continuation;
 import bolts.Task;
@@ -36,6 +41,7 @@ public class Gyro {
                 .range(GyroBmi160.Range.FSR_2000)
                 .commit();
 
+
         gyroBmi160.angularVelocity().addRouteAsync(new RouteBuilder() {
             @Override
             public void configure(RouteComponent source) {
@@ -59,7 +65,7 @@ public class Gyro {
     }
 
     public static String getGyroData() {
-        if(null != d)
+        if (null != d)
             return d.value(AngularVelocity.class).toString();
 
         Log.i("GyroActivity", "No data from gyro");
