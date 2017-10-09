@@ -1,8 +1,8 @@
 package com.example.apollinariia.litup.sensors;
 
 import android.hardware.SensorEvent;
-import android.hardware.SensorManager;
 import android.util.Log;
+
 import java.util.Date;
 
 /**
@@ -99,7 +99,6 @@ public class AccelerometerProcessing implements OnThresholdChangeListener {
 
     @Override
     public void onThresholdChange(double value) {
-        Log.d(TAG, "Current Threshold is: " + value);
         mThresholdValue = value;
     }
 }

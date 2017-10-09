@@ -26,7 +26,6 @@ import com.example.apollinariia.litup.sensors.AccelerometerDetector;
 import com.example.apollinariia.litup.sensors.AccelerometerGraph;
 import com.example.apollinariia.litup.sensors.AccelerometerProcessing;
 import com.example.apollinariia.litup.sensors.OnStepCountChangeListener;
-import com.mbientlab.metawear.Data;
 
 import org.achartengine.GraphicalView;
 
@@ -120,10 +119,10 @@ public class AlarmAlertActivity extends Activity {
                         }
 
                         public void onFinish() {
-                            if (mStepCount >= 4) {
+                            if (mStepCount >= 3) {
                                 alarm.snooze(getApplicationContext());
                                 stopAlarm();
-                                Intent i = new Intent(AlarmAlertActivity.this, AppActivity.class);
+                                Intent i = new Intent(AlarmAlertActivity.this, FaceTrackerActivity.class);
                                 startActivity(i);
                                 mStepCount = 0;
                             }
