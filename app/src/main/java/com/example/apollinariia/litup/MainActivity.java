@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements BleScannerFragmen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btn = (Button) (Button) findViewById(R.id.btn_continue);
+        btn = (Button) findViewById(R.id.btn_continue);
         btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AppActivity.class);

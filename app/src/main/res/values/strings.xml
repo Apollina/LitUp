@@ -14,7 +14,8 @@
     <string name="low_storage_error">Face detector dependencies cannot be downloaded due to low device storage</string>
     <string name="connection_failed">Connection failed</string>
     <string name="connection_established">Connection established</string>
-
+    <string name="remain">continue</string>
+    <string name="select_device">select device</string>
     <string name="title_connecting">Connecting…</string>
     <string name="message_wait">Please wait</string>
     <string name="label_cancel">Cancel</string>

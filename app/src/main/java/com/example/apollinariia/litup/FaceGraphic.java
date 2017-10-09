@@ -49,7 +49,6 @@ class FaceGraphic extends GraphicOverlay.Graphic {
 
     private volatile Face mFace;
     private int mFaceId;
-    public float mFaceHappiness;
 
     FaceGraphic(GraphicOverlay overlay) {
         super(overlay);

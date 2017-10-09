@@ -1,6 +1,5 @@
 package com.example.apollinariia.litup.sensors;
 
-import android.os.Bundle;
 import android.util.Log;
 
 import com.mbientlab.metawear.Data;
@@ -57,12 +56,12 @@ public class Gyro {
                 return null;
             }
         });
-
     }
 
     public static String getGyroData() {
         if(null != d)
             return d.value(AngularVelocity.class).toString();
+
         Log.i("GyroActivity", "No data from gyro");
         return "N/A";
     }
