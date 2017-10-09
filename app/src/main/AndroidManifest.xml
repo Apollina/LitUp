@@ -35,6 +35,7 @@
         <activity android:name=".AppActivity" />
         <activity android:name=".setup.DeviceSetupActivity" />
         <activity android:name=".AlarmAlertActivity" />
+        <activity android:name=".sensors.GyroActivity"/>
 
         <receiver android:name=".services.AlarmReciever" />
         <receiver
@@ -49,7 +50,6 @@
             android:name=".services.Schedulle"
             android:process="com.example.apollinariia.litup.alarm.serviceProcess" />
 
-        <activity android:name=".sensors.GyroActivity" />
         <service android:name=".services.Schedulle"
             android:process="com.example.apollinariia.litup.alarm.serviceProcess"/>
         <service android:name="com.mbientlab.metawear.android.BtleService" />

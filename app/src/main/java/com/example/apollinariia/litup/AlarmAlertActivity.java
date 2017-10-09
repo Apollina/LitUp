@@ -25,6 +25,8 @@ import com.example.apollinariia.litup.data.AlarmDbHelper;
 import com.example.apollinariia.litup.sensors.AccelerometerDetector;
 import com.example.apollinariia.litup.sensors.AccelerometerGraph;
 import com.example.apollinariia.litup.sensors.AccelerometerProcessing;
+import com.example.apollinariia.litup.sensors.Gyro;
+import com.example.apollinariia.litup.sensors.GyroActivity;
 import com.example.apollinariia.litup.sensors.OnStepCountChangeListener;
 
 import org.achartengine.GraphicalView;
@@ -52,6 +54,9 @@ public class AlarmAlertActivity extends Activity {
 
         mStepCountTextView = (TextView) findViewById(R.id.mStepCount);
         gyro = (TextView) findViewById(R.id.textGyro);
+
+        Gyro.start();
+        gyro.setText(Gyro.getGyroData());
 
         mAccelGraph = new AccelerometerGraph(AccelerometerProcessing.THRESH_INIT_VALUE);
 
