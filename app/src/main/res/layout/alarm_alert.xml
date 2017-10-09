@@ -2,29 +2,14 @@
 
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <TableRow
-        android:id="@+id/tableRow6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textAlignment="center">
-    </TableRow>
-
-
-    <TableRow>
-
-
-
-    </TableRow>
+    android:layout_height="match_parent">
 
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ImageView
-            android:layout_width="200dp"
+            android:layout_width="150dp"
             android:layout_height="200dp"
             android:src="@drawable/running" />
 
@@ -34,32 +19,47 @@
             android:layout_height="200dp"
             android:src="@drawable/shake_phone" />
     </TableRow>
+
     <TableRow>
-    <SeekBar
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:id="@+id/offset_seekBar"
-        android:layout_gravity="center"
-        android:layout_weight="7"
-        android:foregroundGravity="center"
-        android:visibility="invisible"/>
-    </TableRow>
-    <TableRow>
+
         <TextView
             android:id="@+id/mStepCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
             android:text="@string/steps"
-            android:textSize="@dimen/font_size_small"
-            android:layout_weight="1"/>
+            android:textSize="@dimen/font_size_small" />
     </TableRow>
+
     <TableRow>
+
         <LinearLayout
-            android:orientation="vertical"
             android:id="@+id/graph_layout"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:layout_gravity="bottom"
             android:layout_weight="8"
-            android:visibility="invisible"/>
-        </TableRow>
+            android:orientation="vertical"
+            android:visibility="visible" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/adj" />
+
+        <SeekBar
+            android:id="@+id/offset_seekBar"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="7"
+            android:foregroundGravity="center"
+            android:visibility="visible" />
+    </TableRow>
 </TableLayout>
