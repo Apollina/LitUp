@@ -33,7 +33,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".AppActivity" />
-        <activity android:name=".setup.DeviceSetupActivity" />
+        <activity android:name=".setup.DeviceSetupActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".AlarmAlertActivity" />
 
         <receiver android:name=".services.AlarmReciever" />
