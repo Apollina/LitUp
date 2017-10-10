@@ -14,7 +14,7 @@ import com.example.apollinariia.litup.Alarm;
  */
 public class AlarmReciever extends WakefulBroadcastReceiver {
 
-    private final String TAG = "AlarmReciever";
+    final String TAG = "AlarmReciever";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -31,4 +31,6 @@ public class AlarmReciever extends WakefulBroadcastReceiver {
         startWakefulService(context, serviceIntent);
     }
 }
+
+
 

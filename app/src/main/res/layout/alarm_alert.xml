@@ -9,20 +9,11 @@
 
         <ImageView
             android:id="@+id/imageView4"
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_gravity="center"
             android:layout_weight=".3"
-            android:src="@drawable/ic_run" />
-
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="175dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:layout_weight=".3"
-            android:src="@drawable/shake_phone" />
+            android:src="@drawable/alarm_alert" />
 
     </TableRow>
 
@@ -30,6 +21,7 @@
 
         <LinearLayout
             android:id="@+id/graph_layout"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_gravity="bottom"
@@ -42,13 +34,14 @@
 
         <TextView
             android:id="@+id/textView"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/adj" />
 
         <SeekBar
             android:id="@+id/offset_seekBar"
-            android:layout_width="0dp"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="7"

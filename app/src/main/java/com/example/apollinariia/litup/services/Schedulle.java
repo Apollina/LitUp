@@ -28,7 +28,6 @@ public class Schedulle extends IntentService {
     public static final String TAG = "Scheduling Demo";
     // An ID used to post the notification.
     public static final int NOTIFICATION_ID = 1;
-    private NotificationManager mNotificationManager;
 
     @Override
     protected void onHandleIntent(Intent intent) {
@@ -38,7 +37,7 @@ public class Schedulle extends IntentService {
 
     // Post a notification indicating whether a doodle was found.
     private void sendNotification(String msg, Intent intent) {
-        mNotificationManager = (NotificationManager)
+        NotificationManager mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
         final Intent sendIntent = new Intent(this, AlarmAlertActivity.class);

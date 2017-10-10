@@ -49,19 +49,12 @@
                 android:layout_marginTop="@dimen/md_keylines"
                 android:layout_marginBottom="@dimen/md_keylines"
                 android:layout_marginRight="@dimen/md_keylines"
-                android:text="Desc"
+                android:text="@string/app_descr"
+                android:textAlignment="center"
                 android:ellipsize="end"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/article_subheading" />
 
-            <Button
-                android:id="@+id/action_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/card_text"
-                style="?android:attr/borderlessButtonStyle"
-                android:textColor="?attr/colorPrimary"
-                android:text="Action" />
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>
