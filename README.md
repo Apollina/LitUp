@@ -31,7 +31,6 @@ Link:
 
 ```
 git clone https://github.com/Apollina/LitUp.git
-
 ```
 or download ZIP
 
