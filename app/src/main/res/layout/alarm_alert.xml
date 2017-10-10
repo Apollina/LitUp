@@ -21,10 +21,10 @@
 
         <LinearLayout
             android:id="@+id/graph_layout"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="150dp"
             android:layout_gravity="bottom"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_weight="8"
             android:orientation="vertical"
             android:visibility="visible" />
@@ -34,19 +34,23 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:layout_width="match_parent"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:text="@string/adj" />
+
+    </TableRow>
+
+    <TableRow>
 
         <SeekBar
             android:id="@+id/offset_seekBar"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="7"
-            android:foregroundGravity="center"
-            android:visibility="visible" />
+            android:foregroundGravity="center" />
     </TableRow>
 
     <TableRow>

@@ -159,7 +159,7 @@ public final class FaceTrackerActivity extends AppCompatActivity {
     /**
      * Stops the camera.
      */
-    @Override
+    @Override 
     protected void onPause() {
         super.onPause();
         mPreview.stop();
