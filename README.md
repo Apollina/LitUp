@@ -32,7 +32,7 @@ Link:
 ```
 git clone https://github.com/Apollina/LitUp.git
 ```
-or download ZIP
+   or download ZIP
 
 2) Open the project in Android Studio 
 3) Click the app module in the Project window and then select Run > Run (or click Run  in the toolbar)
