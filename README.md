@@ -27,7 +27,14 @@ This application will make sure to wake you up on time.
 Link:
 
 ## Installation ##
-1) Clone the project: git clone https://github.com/Apollina/LitUp.git or download ZIP
+1) Clone the project: 
+
+```
+git clone https://github.com/Apollina/LitUp.git
+
+```
+or download ZIP
+
 2) Open the project in Android Studio 
 3) Click the app module in the Project window and then select Run > Run (or click Run  in the toolbar)
 4) In the Select Deployment Target window, select your device, and click OK.
