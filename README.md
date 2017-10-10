@@ -24,7 +24,7 @@ This application will make sure to wake you up on time.
 - Mininum Android 5.0 Lolipop (API 21)
 
 ## UI & UX testing and documentation ##
-Link:
+[Documentation available for everybody](https://docs.google.com/document/d/1Kcci_lGOhMQX-wU_SE9Q-sbdLsZOtdhiiHZ3LEv3a44/edit)
 
 ## Installation ##
 1) Clone the project: 
