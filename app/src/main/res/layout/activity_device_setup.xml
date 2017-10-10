@@ -32,6 +32,5 @@
         android:text="@string/metawear_connected"
         android:textSize="@dimen/font_size_small" />
 
-    <include layout="@layout/content_device_setup" />
 
 </android.support.design.widget.CoordinatorLayout>

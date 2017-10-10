@@ -36,6 +36,7 @@
         <activity android:name=".setup.DeviceSetupActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".AlarmAlertActivity" />
+        <activity android:name=".FaceTrackerActivity" />
 
         <receiver android:name=".services.AlarmReciever" />
         <receiver
@@ -54,8 +55,6 @@
             android:process="com.example.apollinariia.litup.alarm.serviceProcess"/>
         <service android:name="com.mbientlab.metawear.android.BtleService" />
 
-<activity android:name=".FaceTrackerActivity">
-        </activity>
     </application>
 
 </manifest>

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -8,22 +7,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="150dp"
-                android:layout_height="200dp"
-                android:layout_gravity="center"
-                android:orientation="horizontal"
-                android:src="@drawable/ic_run" />
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_weight=".3"
+            android:src="@drawable/ic_run" />
 
 
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="150dp"
-                android:layout_height="200dp"
-                android:layout_gravity="end"
-                android:orientation="horizontal"
-                android:src="@drawable/shake_phone" />
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="175dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_weight=".3"
+            android:src="@drawable/shake_phone" />
 
     </TableRow>
 
