@@ -20,8 +20,8 @@ This application will make sure to wake you up on time.
 - Fragments
 
 ## Requirements ##
-- Target Android 7.1 Nougat (API 25)
-- Mininum Android 5.0 Lolipop (API 21)
+- Target Android 7.1 Nougat ( API 25 )
+- Mininum Android 5.0 Lolipop ( API 21 )
 
 ## UI & UX testing and documentation ##
 [Documentation available for everybody](https://docs.google.com/document/d/1Kcci_lGOhMQX-wU_SE9Q-sbdLsZOtdhiiHZ3LEv3a44/edit)
